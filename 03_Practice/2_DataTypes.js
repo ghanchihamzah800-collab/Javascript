@@ -81,7 +81,7 @@ console.log(`this is Not a Number:${typeof (X)}\n`)
 let a = [1, 2];
 let b = a;
 b.push(3);
-console.log(a);
+console.log(a , "\n");
 
 //----------------
 
@@ -96,7 +96,7 @@ function outer() {
   let count = 0;
   return function () {
     count++;
-    console.log(count);
+    console.log(count, "\n");
   };
 }
 
