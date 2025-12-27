@@ -32,7 +32,7 @@ console.log(`The value CONST is currently ${num2}`);
 console.log(`A CONST value is an non-updatable variable block, thus it will show an error. \n`)
 
 try{
-    num2= 10;
+    num2= 12;
 } catch (error){
     console.log(`Error: Cannot updates a CONST variable, so it remains ${num2}. \n`)
 }
