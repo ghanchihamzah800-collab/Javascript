@@ -95,3 +95,30 @@ console.log("\n")
 
 //----------------------
  
+//11. Remove duplicate values from an array.
+
+arr1 = [1,2,3,2,4,3,1]
+
+let uniqueArr = [...new Set(arr1)]
+console.log(uniqueArr)
+
+console.log("\n")
+
+//------------
+
+//15. Find the index of an element using indexOf.
+
+console.log(arr1.indexOf(1))
+console.log("\n")
+
+//-----------------
+
+//16. Remove an element from an array by value (not index).
+
+arr1 = arr1.filter(value => value !== 2);
+
+console.log(arr1); 
+console.log("\n")
+
+//-----------------------------------
+

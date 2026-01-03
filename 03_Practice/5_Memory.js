@@ -131,3 +131,77 @@ console.log("\n")
 
 //------------
 
+//7. Clone an object so changes do not affect the original.
+
+//soft clone:
+const original = {Name: "Hamzah", age: 20};
+
+const clone= {...original};
+clone.age = 22;
+
+console.log(original)
+console.log(clone)
+
+console.log("\n")
+
+//Nested cloning only /structured clone
+const original2 = {
+    name: "Manju",
+    age: 20,
+    skills: {
+        js: true
+    }
+};
+
+const clone2 = structuredClone(original2);
+
+clone2.skills.js = false;
+
+console.log(original2.skills.js);
+console.log(clone2.skills.js); 
+
+console.log("\n")
+
+//--------------
+
+//8. Explain pass-by-value vs pass-by-reference in JavaScript.
+
+let x1 = 10;
+let x2 = x1 + 10; //variables are primitive type
+
+console.log(x2)
+console.log(x1) //pass-by-value, where you make any changes to referance value primitive value never changes.
+
+console.log("\n")
+
+let obj1 ={ name: "Manju", age: 20} //objects are refernce type
+
+obj1.age = 21;
+
+console.log(obj1)
+console.log(obj1.age) //pass-by-referance, refrence value changes, both ways
+
+console.log("\n")
+
+//---------------------------------
+
+//10.	Create a deep copy using structuredClone() or JSON.
+
+const original3 = {
+  name: "Hamzah",
+  address: {
+    city: "Ahmedabad",
+    pin: 380001
+  }
+};
+
+const deepCopy = structuredClone(original3);
+
+deepCopy.address.city = "Surat";
+
+console.log(original3.address.city); // "Ahmedabad"
+console.log(deepCopy.address.city); // "Surat"
+
+//------------------------
+
+//

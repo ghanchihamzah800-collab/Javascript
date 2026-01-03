@@ -189,5 +189,83 @@ var x=5;
 
 //------------------------
 
+//17. What is the Temporal Dead Zone (TDZ)? Demonstrate with let and const.
+
+try{console.log(num3); 
+    let num3 = 10;
+
+}catch(error){
+    console.log("error, This is a TDZ, this variable is not declared yet")
+}
+console.log("\n")
+
+//--------------
+
+//18. Explain the difference between reassigning a variable and mutating a value stored in a variable.
+
+//reassingning:
+
+let mu1= 1;
+mu1= 2;
+
+let as1= [7,8,9];
+as1= [7,8,9,0]
+
+//mutation:
+
+as1.push(1,3)
+console.log(as1)
+
+console.log("\n")
+
+//-----------------------
+
+//21.	Can const prevent mutation? Demonstrate with an object and an array.
+
+const arr3 = [1,2,3]
+arr3.push(4)
+console.log(arr3)
+
+console.log("\n")
+
+//-------------------------
+
+//22.	What happens if you declare let x; let x; in the same scope?
+
+{
+    let x= 10; // Cannot be in the same scope
+    {
+        let x= 20; //But can be in the same nested scope
+        console.log(x)
+    }
+    console.log(x)
+}
+
+console.log("\n")
+
+//-----------------------------
+
+//24.	Create a block where var leaks but let does not.
+
+{
+var x = 20;
+let y = 30
+  
+}
+
+ console.log(x)
+
+ try{
+    console.log(y)
+ } catch (error){
+    console.log("var can leak from any block/scope but let cannot leak from block scope")
+    
+ }
+
+ console.log("\n")
+
+ //------------------------
+ 
+ //25.	Write a function showing function scope vs block scope.
 
 

@@ -1,4 +1,4 @@
-//MAPS:
+//MAPS(1):
 
 //1.	Multiply each number in array by 2.
 
@@ -9,7 +9,7 @@ console.log(multiples)
 
 //----------------------
 
-//2.	Convert array of strings to uppercase.
+//1.2.	Convert array of strings to uppercase.
 
 let arr2= ["java", "script"]
 
@@ -19,6 +19,39 @@ console.log(upper)
 console.log("\n")
 
 //------------------
+
+// 1.3. Extract specific properties from objects.
+
+let obj1 = [{ Name: "Aayan", age: 16}]
+
+const caller = obj1.map(({Name, age}) => ({
+  Name,
+  age
+}));
+
+console.log(caller)
+
+console.log("\n")
+
+//----------------------------
+
+//1.4	Given an array of numbers, return a new array of their binary representations.
+
+let binaryArr= [];
+
+for (let i = 0; i < arr1.length; i++) {
+     binaryArr.push((arr1[i].toString(2)))
+     
+    }
+    console.log(binaryArr);
+
+    console.log("\n")
+
+//--------------------------------------------
+
+//
+
+//------------------------------
 
 //FILTER
 

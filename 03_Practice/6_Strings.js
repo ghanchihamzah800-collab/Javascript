@@ -57,7 +57,7 @@ console.log("\n")
 //9.	Check if a string starts with or ends with a specific word.
 
 str1= "JavaScript"
-console.log(`Check if in the string it include "Script": ${str1.includes("Script")}`)
+console.log(`Check if in the string it include "Script": ${str1.endsWith("Script")}`)
 console.log("\n")
 
 //--------------
@@ -90,4 +90,16 @@ console.log(array1.join(" "))
 console.log("\n")
 
 //-------------
+
+//14.  Capitalize the first letter of a string
+
+str1 = "java"
+
+let Capital= str1[0].toUpperCase() + str1.slice(1)
+console.log(Capital)
+
+console.log("\n")
+
+//-----------------------
+
 

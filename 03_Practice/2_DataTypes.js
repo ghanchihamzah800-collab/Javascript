@@ -112,3 +112,91 @@ function test(a, b) {
   console.log(a);
 }
 test(5, 8);
+
+console.log("\n")
+
+//--------------------
+
+//4. How to know if a variable is an array. Hint don’t use: typeof.
+
+console.log(Array.isArray(arr));
+console.log("\n")
+
+//----------------
+
+//5. Check whether NaN is equal to itself and explain why.
+
+console.log(typeof NaN);
+
+console.log(Boolean(NaN == NaN))
+console.log(Boolean(NaN === NaN))
+
+console.log("\n")
+
+//---------------
+
+//6. Difference between primitive and non-primitive data types with examples.
+
+let x1 = 10; //primitive, string, number, boolean, null, undefined, symbol, bigint
+
+let x2 = { a: 10 }; //non-primitive, object, array, function, date, map, set
+
+console.log("\n")
+
+//---------------------
+
+//7.	Store a BigInt and perform addition with another BigInt.
+
+let big = BigInt(1)
+let big2 = BigInt(1)
+
+console.log(big + big2) //2n (n = BigInt)
+
+console.log("\n")
+
+//---------------------------
+
+//8.	What happens if you try to add a BigInt and a Number?
+
+//Cannot happen in normal terms
+
+//--------------------
+
+//9.	Check if two Symbols with same description are equal.
+
+let sym2 = Symbol("id")
+
+console.log( sym1 == sym2)
+console.log( sym1 === sym2)
+
+console.log("\n")
+
+//-----------------------
+
+//10.	Store a function inside a variable and check its type.
+
+const func1 = (num1,num2) => {
+  return num1 + num2;
+} 
+
+console.log(typeof(func1))
+
+//-------------------
+
+//12.	Write a function that accepts only numbers—reject others using typeof.
+
+function dataTypeRejecter(demo){
+   if (typeof(demo) == "number"){
+    console.log(`Entered value ${`demo`} is indeed a number`)
+   } else{
+    console.log(`Entered value ${`demo`} is not a number, Reject`)
+   }
+}
+
+dataTypeRejecter("10")
+
+console.log("\n")
+
+//----------------------------
+
+

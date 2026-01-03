@@ -67,3 +67,4 @@ switch (Grade) {
         break;
 }
 
+console.log("\n")

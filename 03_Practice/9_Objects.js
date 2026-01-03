@@ -72,10 +72,11 @@ console.log("\n")
 
 //7.	Destructure name and age from an object.
 
-const { name, age } = student;
+const { name, age } = student; 
 
 console.log(name);
 console.log(age);
+
 
 console.log("\n")
 
@@ -121,5 +122,43 @@ const {
 
 console.log(studentName2);
 console.log(studentAge2); 
+
+console.log("\n")
+
+//----------------
+
+//12. Freeze an object and attempt to modify it.
+
+Object.freeze(student)
+
+student.name= "Sultan";
+console.log(student)
+
+console.log("\n")
+
+//---------------------------------
+
+//13.  Count the number of keys in an object
+
+let count = 0
+
+for (const key in student) {
+    count++
+     
+}
+
+console.log(count)
+
+console.log("\n")
+
+//---------------------------------
+
+//14. Check if an object is empty
+
+let obj = {};
+
+let isEmpty = Object.keys(obj).length === 0;
+
+console.log(isEmpty);
 
 

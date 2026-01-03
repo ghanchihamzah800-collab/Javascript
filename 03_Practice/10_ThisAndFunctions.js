@@ -122,3 +122,129 @@ const intro = () =>{
 intro()
 
 console.log("\n")
+
+//--------------------------
+
+//9.	Use this inside a constructor function.
+
+function Func1(name, age) {
+    this.name = name;
+    this.age = age;
+    this.JS = true;
+}
+
+const outfunc1 = {
+    ...new Func1("Hamzah", 20)
+}
+console.log(outfunc1);
+
+console.log("\n")
+
+//-------------------------
+
+//10. Write a pure function and an impure function.
+
+function add2(a, b) {
+  return a + b;
+}
+
+add2(1,2) //Cannot be mutable by anything outside.
+
+let b = 10;
+
+function sum(a, b) {
+   return a + b;
+}
+
+sum(10); //Can be mutable by an outside variable.
+
+console.log("\n")
+
+//--------------------------------
+
+//11. Observe this inside a callback function.
+
+const user = {
+  name: "Hamzah",
+  greet: (function () {
+   
+      console.log(this.name);
+    })
+};
+
+user.greet();
+
+console.log("\n")
+
+//----------------------------
+
+//12.	Pass a function as an argument and call it
+
+function greet() {
+    console.log("hello")
+}
+
+function callFunction(fn) {
+    fn()
+}
+
+callFunction(greet)
+
+console.log("\n")
+
+//------------------------
+
+//13.	Use map() with an arrow function
+
+const arr1 = [1, 2, 3, 4];
+
+const doubled = arr1.map(num => num * 2);
+console.log(doubled);
+
+console.log("\n")
+
+//------------------------
+
+//14.	Write one function that does one thing only
+
+function greet() {
+    console.log("hello")
+}
+
+greet()
+
+console.log("\n")
+
+//------------------------------------
+
+//15.	Write a function that returns another function 
+
+function func1() {
+    return function func2(){
+    console.log("hello")
+   }
+}
+
+const returnedFunction = func1(); 
+returnedFunction();       
+
+console.log("\n")
+
+//---------------------------------
+
+//17.	Write a function that validates input type before processing.
+
+function validator(num) {
+    if( typeof(num) === "number"){
+        console.log(`Valid input`)
+    } else{
+        console.log(" Invalid input")
+    }
+}
+
+validator("5")
+
+console.log("\n")
+
+//-----------------------------
+
