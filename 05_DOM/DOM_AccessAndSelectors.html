@@ -1,0 +1,184 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>DOM</title>
+</head>
+
+<body class="bg-black">
+
+  <p id="demo-text">Demo text</p>
+
+  <div id="count">
+    <ol id="ol">
+      <li class="list-item">One</li>
+      <li class="list-item">Two</li>
+      <li class="list-item">Three</li>
+    </ol>
+  </div>
+
+  <div id="Count-Output"></div>
+
+  <p id="demo-text2">Demo text</p>
+
+  <div id="count2">
+    <ol id="ol">
+      <li class="list-item">One</li>
+      <li class="list-item">Two</li>
+      <li class="list-item">Three</li>
+    </ol>
+  </div>
+
+  <div id="ArrayOut"></div>
+
+  <div id="inputList">
+    <input type="text" id ="Text" class="inputSet" disabled>
+    <input type="number" class="inputSet">
+    <input type="time" class="inputSet">
+  </div>
+
+  <p id="last-para" class="active">
+    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vitae laboriosam optio ducimus error similique soluta ipsum.
+    Libero odio perspiciatis reiciendis quia tenetur exercitationem voluptatum, eaque quam labore et sunt dolores!
+  </p>
+
+  <div class="card">
+    <p class="active">
+      Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vitae laboriosam optio ducimus error similique soluta ipsum.
+      Libero odio perspiciatis reiciendis quia tenetur exercitationem voluptatum, eaque quam labore et sunt dolores!
+    </p>
+  </div>
+
+  <div id="count3">
+    <ul id="ul">
+      <li class="list-item">One</li>
+      <li class="list-item">Two</li>
+      <li class="list-item">Three</li>
+    </ul>
+  </div>
+
+  <div class="div-contains"></div>
+  <div class="div-matches"></div>
+  <div class="div-attribute-checker"></div>
+
+  <script>
+// 1. Select an element by ID and change its text.
+    const element1 = document.getElementById("demo-text");
+    element1.textContent = "Updated Text";
+
+// 2. Select all elements with a given class and log their count.
+    const element2 = document.getElementsByClassName("list-item");
+    document.getElementById("Count-Output").textContent =
+      `Total count: ${element2.length}`;
+
+// 3. Select the first element matching a CSS selector.
+    const element3 = document.querySelector("#demo-text2");
+    element3.textContent = "Updation2";
+
+// 4. Select all list items inside a <ol> using querySelectorAll.
+    let olList = document.querySelectorAll("ol li");
+    document.getElementById("count2").textContent =
+      `Total OL items: ${olList.length}`;
+
+// 5. Change the background color of all selected elements.
+    olList.forEach(li => {
+      li.style.backgroundColor = "yellow";
+    });
+
+// 6. Convert a NodeList into an array and use map() on it.
+    const nodeList = document.querySelectorAll("ol li");
+    const listArray = Array.from(nodeList);
+    document.getElementById("ArrayOut").textContent =
+      listArray.map(li => li.textContent);
+
+// 7. Select all <input> elements and disable them.
+    const inputs = document.querySelectorAll(".inputSet");
+    inputs.forEach(input => {
+      input.disabled = true;
+    });
+
+// 8. Select the last paragraph on the page.
+    const paragraph = document.querySelector("p:last-of-type");
+    paragraph.style.backgroundColor = "Green";
+
+// 9. Select elements having multiple classes.
+    const activeCards = document.querySelectorAll(".card .active");
+    activeCards.forEach(element => {
+      element.style.border = "2px solid black";
+      element.style.color = "Purple";
+    });
+
+// 10. Select all elements inside a specific container only.
+//11.	Select a parent element from a child.
+    const ulList = document.querySelectorAll("#count3 li");
+    ulList.forEach(element => {
+      element.style.backgroundColor = "blue";
+    });
+
+
+//12.	Select only direct children of an element
+    const ul = document.getElementById("ul");
+  const directChildren = ul.children;
+
+  Array.from(directChildren).forEach(element => {
+    element.style.color = "white"
+  });
+
+//13.	Find the closest matching ancestor
+
+ 
+    ulList.forEach(element => {
+       const container = element.closest("ul");
+      container.style.border = "2px solid black";
+    });
+
+//14.	Safely access an element that may not exist
+
+  const el = document.querySelector("#maybeExists");
+
+  if (el) {
+    el.style.color = "red";
+  }
+
+//15.	Understand live vs static DOM collections
+
+  /*Live collections update automatically(getElementsByClassName()) when the DOM changes.
+  Static collections do not(querySelectorAll()).*/
+
+//16.	Check if one element contains another
+
+  const parent = document.getElementById("count3");
+  const child = document.querySelector("#count3 li");
+
+  const result = document.querySelector(".div-contains").textContent = (parent.contains(child)); 
+
+//17.	Check if an element matches a selector
+  const checkCard = document.querySelector(".card")
+  const matcher = checkCard.matches(".active")
+  document.querySelector(".div-matches").textContent = matcher
+
+//18.	Check if an attribute exists
+  const inputText = document.getElementById("Text");
+  const checker = inputText.hasAttribute("disabled");
+
+  document.querySelector(".div-attribute-checker").textContent = checker
+
+//19.	Select elements using attribute selectors
+  const attribSelector = document.querySelector('[type = "text"]').style.border = "2px dotted red"
+
+//20.	Create elements using DocumentFragment
+const fragment = document.createDocumentFragment();
+
+["Four", "Five", "Six"].forEach(text => {
+  const li = document.createElement("li");
+  li.textContent = text;
+  fragment.appendChild(li);
+});
+
+ul.appendChild(fragment);
+
+  </script>
+
+</body>
+</html>
