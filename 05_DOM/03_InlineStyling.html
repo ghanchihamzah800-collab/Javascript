@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inline Styling.DOM</title>
+</head>
+<body>
+    
+<p id="colorChange">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nam, incidunt aliquam. Eligendi accusantium ex aperiam, voluptatibus beatae porro, quam corporis velit nemo dolor autem? Quas accusantium recusandae quo porro perferendis!</p>
+
+<p id="fontChange">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nam, incidunt aliquam. Eligendi accusantium ex aperiam, voluptatibus beatae porro, quam corporis velit nemo dolor autem? Quas accusantium recusandae quo porro perferendis!</p>
+
+<input type="text" id="inputText">
+
+<ul id="demoUl">
+    <li>One</li>
+    <li>Two</li>
+</ul>
+
+<p id="niceElement" style="font-size: 20px; color: rgb(143, 14, 223)">Nice</p>
+
+<div id="styleChecker"></div>
+
+<p id = "textStyle">Hello</p>
+<div id="styleChecker2"></div>
+
+<script>
+
+//1.	Change text color using JavaScript.
+    const textColor = document.getElementById("colorChange")
+    textColor.style.color = "#f23"
+
+//2.	Increase font size dynamically.
+    const textFont = document.getElementById("fontChange")
+    textFont.style.fontSize = "18px"
+
+//3.	Hide an element using JS.
+    const inputText = document.getElementById("inputText")
+    inputText.setAttribute("hidden", " ")
+
+//4.	Show a hidden element again.
+    inputText.hidden = false
+
+//5.	Change multiple styles at once.
+    document.querySelector("#demoUl").style.cssText =`    
+    font-size: 20px;
+    color : green;
+    background-color: #ff44;
+    `
+//6.	Apply styles only if a condition is true.
+
+    let condition = true;
+
+    if(condition === true){
+        document.querySelector("#demoUl").style.border = "2px solid red"
+    } 
+    
+//7.	Reset inline styles.
+    const niceElement = document.querySelector("#niceElement");
+    niceElement.style.color = ""
+
+//8.	Read an element’s current inline style value.
+    document.getElementById("styleChecker").textContent = niceElement.style.fontSize
+
+//9.	Toggle styles using JavaScript. 
+    const textStyle = document.getElementById("textStyle")
+
+    document.getElementById("styleChecker2").textContent = getComputedStyle(textStyle).color
+
+</script> 
+
+
+</body>
+</html>
