@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create & Insert Elements</title>
+</head>
+<body>
+
+    <div id = "divAppend" ></div>
+    
+<script>
+
+
+//1.	Create a new <div> using JavaScript.
+//3.	Add a class and ID to the element.
+//4.	Append the element to body.
+
+    const div1 = document.createElement("div")
+    div1.style.border = "2px solid red"
+
+    document.body.appendChild(div1);
+
+        //OR 
+
+    const div2 = Object.assign(document.createElement("div"), {
+        id : "div2",
+        className : "divs"
+    })
+
+    div2.style.border = "2px solid green"
+    document.body.appendChild(div2);
+
+//2.	Add text to the newly created element.
+    div1.innerHTML = "<b> Hello JS <b>"
+
+//3.	Add a class and ID to the element.
+        Object.assign(div1 ,{
+            id: "div1",
+            className : "divs"
+        });
+
+//5.	Append an element inside a specific container.
+        const divAppend = document.getElementById("divAppend")
+        
+        const div3 = document.createElement("div");
+
+
+        div3.style.border = "2px solid purple"
+        div3.innerHTML = "<b> Hello 3 </b>"
+        divAppend.appendChild(div3)
+
+//6.	Insert an element before another element.
+        const div4 = document.createElement("div")
+
+        div4.id = "div4";
+        div4.className = "divs";
+        div4.style.border = "2px dotted yellow";
+        div4.textContent = "Hello 4";
+       
+        document.body.insertBefore(div4,div2)
+
+//7.	Move all elements to place using .after()
+         div1.after(div2)
+         div2.after(div3)
+
+         div2.innerHTML = "<b> Div 2</b>"
+
+//8.	Insert an element after another element.
+        const div5 = document.createElement("div")
+
+        div5.id = "div5";
+        div5.className = "divs";
+        div5.style.border = "2px dotted pink";
+        div5.textContent = "5th Element";
+        
+        div4.after(div5)
+
+//9.	Clone an existing element and append it elsewhere.
+
+        const clone = div4.cloneNode(" ")
+        clone.textContent = "Hello 4 Cloned"
+        div5.appendChild(clone)
+
+//10.	Remove a dynamically created element.
+
+        const div6 = document.createElement("div")
+        div6.textContent = "Clone Delete"
+        div5.after(div6)
+
+        div6.remove();
+
+</script>
+
+</body>
+</html>
