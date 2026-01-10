@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM Traversal</title>
+</head>
+<body>
+
+<ul id="ulList" hidden>
+      <li class="list">Home</li>
+      <li class="list">About</li>
+      <li class="list">Contact</li>
+    </ul>
+
+    <p><b>1. Select a parent element and log its children:</b></p>
+    <div id="getLi"></div>
+
+    <p><b>2. Access the first child element:</b></p>
+    <div id="firstElement"></div>
+
+    <p><b>3. Access the last child element:</b></p>
+    <div id="lastElement"></div>
+
+    <p><b>4. Move from a child to its parent:</b></p>
+    <div id="checkParent"></div>
+
+    <p><b>5. Access next sibling element:</b></p>
+    <div id="checkSibling"></div>
+
+    <p><b>6. Access previous sibling element:</b></p>
+    <div id="checkSibling2"></div>
+
+    <p><b>7. Count total child elements of a container:</b></p>
+    <div id="childCount"></div>
+
+    <p><b>8. Loop through all children of a parent:</b></p>
+    <div id="loopedChildren"></div>
+
+    <p><b>9. Find the closest parent matching a selector:</b></p>
+    <div id="getParent"></div>
+
+    <p><b>10. Difference between <code>childNodes</code> vs <code>children</code>:</b></p>
+    <div id="checkChildren"></div>
+
+    <p><b>11. Check if an element has children:</b></p>
+    <div id="hasChildren"></div>
+
+
+<script>
+
+//1.	Select a parent element and log its children.
+    const ulList = document.getElementById("ulList")
+
+   const output = document.getElementById("getLi");
+output.innerHTML = "";
+
+for (const li of ulList.children) {
+  output.innerHTML += li.textContent + "<br>";
+}
+
+//2.	Access the first child element.
+    document.querySelector("#firstElement").textContent = ulList.firstElementChild.textContent
+
+//3.	Access the last child element.
+    document.querySelector("#lastElement").textContent = ulList.lastElementChild.textContent
+
+//4.	Move from a child to its parent.
+    const list = document.querySelector(".list")
+    document.querySelector("#checkParent").textContent = list.parentElement.textContent;
+
+//5.	Access next sibling element.
+    document.querySelector("#checkSibling").textContent = `${list.nextElementSibling.textContent} is the next Sibling`
+
+//6.	Access previous sibling element.
+
+    if(list.previousElementSibling === null){
+        document.querySelector("#checkSibling2").textContent = `No previous child`
+    }else{
+        document.querySelector("#checkSibling2").textContent = list.previousElementSibling.textContent
+    }
+
+//7.	Count total child elements of a container.
+    document.querySelector("#childCount").textContent = ulList.childElementCount
+
+//8.	Loop through all children of a parent.
+
+    let all = "";
+
+    for (let i = 0; i < ulList.children.length; i++) {
+        let element = ulList.children[i]
+        
+        all += element.textContent + " "
+    }
+
+    document.getElementById("loopedChildren").textContent = all;
+
+//9.	Find the closest parent matching a selector.
+    const parent = list.closest("#ulList")
+    document.querySelector("#getParent").textContent = parent.textContent
+
+//10.	Difference between childNodes vs children
+       document.querySelector("#checkChildren").textContent =
+  `childNodes: ${ulList.childNodes}, children: ${ulList.children} \n 
+  childNodesLength: ${ulList.childNodes.length}, childrenLength: ${ulList.children.length}`;
+
+//11.	Check if an element has children.
+    const hasChildren = ulList.children.length > 0;
+    const outputIf = document.querySelector("#hasChildren");
+
+   if (hasChildren) {
+  outputIf.textContent = `Has children: ${ulList.children.length}`;
+    } else {
+  outputIf.textContent = "No children in the parent";
+    }
+
+
+    
+</script>
+</body>
+</html>
