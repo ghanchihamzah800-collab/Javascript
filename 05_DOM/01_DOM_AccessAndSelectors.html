@@ -7,8 +7,9 @@
 
 <body class="bg-black">
 
-    <p id="demo-text">Demo text</p>
+    <p><strong>1.</strong> <span id="demo-text">Demo text</span></p>
 
+    <p><strong>2.</strong></p>
     <div id="count">
         <ol>
             <li class="list-item">One</li>
@@ -16,144 +17,162 @@
             <li class="list-item">Three</li>
         </ol>
     </div>
+    <div id="Count-Output"></div>
 
-    <div id="Count-Output"></div><br>
+    <p><strong>3.</strong> <span id="demo-text2">Demo text</span></p>
 
-    <p id="demo-text2">Demo text</p>
+    <p><strong>4.</strong></p>
+    <div id="count2"></div>
 
-    <div id="count2"></div><br>
+    <p><strong>6.</strong> Converted Array</p>
+    <div id="ArrayOut"></div>
 
-    <div id="ArrayOut"></div><br>
-
+    <p><strong>7.</strong></p>
     <div id="inputList">
         <input type="text" id="Text" class="inputSet" disabled>
         <input type="number" class="inputSet">
         <input type="time" class="inputSet">
-    </div><br>
+    </div>
 
+    <p><strong>8.</strong></p>
     <p id="last-para" class="active">
         Lorem ipsum dolor sit amet consectetur adipisicing elit.
     </p>
 
+    <p><strong>9.</strong></p>
     <div class="card">
         <p class="active">
             Lorem ipsum dolor sit amet consectetur adipisicing elit.
         </p>
     </div>
 
+    <p><strong>10–13.</strong></p>
     <div id="count3">
         <ul id="ul">
             <li class="list-item">One</li>
             <li class="list-item">Two</li>
             <li class="list-item">Three</li>
         </ul>
-    </div><br>
+    </div>
 
-    <div class="div-contains"></div><br>
-    <div class="div-matches"></div><br>
-    <div class="div-attribute-checker"></div><br>
+    <p><strong>16.</strong></p>
+    <div class="div-contains"></div>
+
+    <p><strong>17.</strong></p>
+    <div class="div-matches"></div>
+
+    <p><strong>18.</strong></p>
+    <div class="div-attribute-checker"></div>
 
 <script>
 
-// 1. Select an element by ID and change its text.
+//1.	Select an element by ID and change its text.
     const element1 = document.getElementById("demo-text");
     element1.textContent = "Updated Text";
 
-// 2. Select all elements with a given class and log their count.
+//2.	Select all elements with a given class and log their count.
     const element2 = document.getElementsByClassName("list-item");
-    document.getElementById("Count-Output").textContent =
-        `2. Select all elements with a given class and log their count.<br>${element2.length}`;
+    document.getElementById("Count-Output").textContent =`Count: ${element2.length}`;
 
-// 3. Select the first element matching a CSS selector.
+//3.	Select the first element matching a CSS selector.
     const element3 = document.querySelector("#demo-text2");
     element3.textContent = "Updated Text using querySelector";
 
-// 4. Select all list items inside an <ol> using querySelectorAll.
+//4.	Select all list items inside a <ol> using querySelectorAll.
     const olList = document.querySelectorAll("ol li");
-    document.getElementById("count2").textContent =
-        `4. Select all list items inside an <ol>.<br>${olList.length}`;
 
-// 5. Change the background color of all selected elements.
+    document.getElementById("count2").textContent = ` list's length: ${olList.length}`;
+
+//5.	Change the background color of all selected elements.
     olList.forEach(li => {
         li.style.backgroundColor = "yellow";
     });
 
-// 6. Convert a NodeList into an array and use map() on it.
+//6.	Convert a NodeList into an array and use map() on it.
     const nodeList = document.querySelectorAll("ol li");
     const listArray = Array.from(nodeList);
-    document.getElementById("ArrayOut").textContent =
-        `6. Convert NodeList to Array using map().<br>${listArray.map(li => li.textContent).join(", ")}`;
 
-// 7. Select all <input> elements and disable them.
+    document.getElementById("ArrayOut").textContent =
+        listArray.map(li => li.textContent).join(", ");
+
+//7.	Select all <input> elements and disable them.
     const inputs = document.querySelectorAll(".inputSet");
+
     inputs.forEach(input => {
         input.disabled = true;
     });
 
-// 8. Select the last paragraph on the page.
+//8.	Select the last paragraph on the page.
     const paragraph = document.querySelector("p:last-of-type");
     paragraph.style.backgroundColor = "green";
 
-// 9. Select elements having multiple classes.
+//9.	Select elements having multiple classes.
     const activeCards = document.querySelectorAll(".card .active");
+
     activeCards.forEach(element => {
         element.style.border = "2px solid black";
         element.style.color = "purple";
     });
 
-// 10. Select all elements inside a specific container only.
+//10.	Select all elements inside a specific container only.
     const ulList = document.querySelectorAll("#count3 li");
+
     ulList.forEach(element => {
         element.style.backgroundColor = "blue";
     });
 
-// 11. Select a parent element from a child.
+//11.	Select a parent element from a child
     ulList.forEach(element => {
         element.parentElement.style.border = "2px solid black";
     });
 
-// 12. Select only direct children of an element.
+//12.	Select only direct children of an element
     const ul = document.getElementById("ul");
+
     Array.from(ul.children).forEach(element => {
         element.style.color = "white";
     });
 
-// 13. Find the closest matching ancestor.
+//13.	Find the closest matching ancestor
     ulList.forEach(element => {
         const container = element.closest("ul");
         container.style.border = "3px solid red";
     });
 
-// 14. Safely access an element that may not exist.
+//14.	Safely access an element that may not exist
     const el = document.querySelector("#maybeExists");
+
     if (el) {
         el.style.color = "red";
     }
 
-// 15. Understand live vs static DOM collections.
+//15.	Understand live vs static DOM collections
     // Live: getElementsByClassName
     // Static: querySelectorAll
 
-// 16. Check if one element contains another.
+//16.	Check if one element contains another
     const parent = document.getElementById("count3");
     const child = document.querySelector("#count3 li");
-      document.querySelector(".div-contains").textContent =
-        `16. Parent contains child.<br>${parent.contains(child)}`;
 
-// 17. Check if an element matches a selector.
+    document.querySelector(".div-contains").textContent =
+        parent.contains(child);
+
+//17.	Check if an element matches a selector
     const checkCard = document.querySelector(".card");
-      document.querySelector(".div-matches").textContent =
-        `17. Element matches selector '.active'.<br>${checkCard.matches(".active")}`;
 
-// 18. Check if an attribute exists.
+    document.querySelector(".div-matches").textContent =
+        checkCard.matches(".active");
+
+//18.	Check if an attribute exists
     const inputText = document.getElementById("Text");
-      document.querySelector(".div-attribute-checker").textContent =
-        `18. Input has 'disabled' attribute.<br>${inputText.hasAttribute("disabled")}`;
+    
+    document.querySelector(".div-attribute-checker").textContent =
+        inputText.hasAttribute("disabled");
 
-// 19. Select elements using attribute selectors.
+//19.	Select elements using attribute selectors
     document.querySelector('[type="text"]').style.border = "2px dotted red";
 
-// 20. Create elements using DocumentFragment.
+//20.	Create elements using DocumentFragment
     const fragment = document.createDocumentFragment();
 
     ["Four", "Five", "Six"].forEach(text => {

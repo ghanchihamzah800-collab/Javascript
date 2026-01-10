@@ -5,50 +5,68 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Attributes & Classes – Reference</title>
 </head>
+
 <body>
 
-<div id="card"></div><br>
-<div id="setAt"></div><br>
-<div id="elementAt"></div><br>
+<p><strong>1. Get the id of a selected element and log it</strong></p>
+    <div id="card"></div>
 
-<input type="text" id="type-text" disabled><br><br>
+    <p><strong>2. Set a custom attribute (data-role) on an element</strong></p>
+    <div id="setAt"></div>
 
-<div id="classChecker"></div><br>
-<div id="classChecker2"></div><br>
-<div id="classChecker3"></div><br>
-<div id="classChecker4"></div><br><br>
+    <p><strong>3. Read a data-* attribute from an element</strong></p>
+    <div id="elementAt"></div>
 
-<div id="source" class="card active highlight"></div>
-<div id="target"></div><br><br>
+    <p><strong>4–5. Remove an attribute and add a class</strong></p>
+    <input type="text" id="type-text" disabled>
 
-<div id="attributeChecker"></div><br>
-<div id="attributeChecker2"></div><br><br>
+    <p><strong>6. Check if an element contains a specific class</strong></p>
+    <div id="classChecker"></div>
 
-<input type="time" id="time-stamp"><br>
-<div id="classChecker5"></div><br><br>
+    <p><strong>7. Remove a class from an element</strong></p>
+    <div id="classChecker2"></div>
 
-<div id="card2" data-role="admin" data-status="active" data-user-id="42"></div>
-<div id="attributeChecker3"></div><br><br>
+    <p><strong>8. Replace one class with another</strong></p>
+    <div id="classChecker3"></div>
 
-<div id="attributeChecker4"></div>
+    <p><strong>9–10. Copy classes and toggle a class</strong></p>
+    <div id="source" class="card active highlight"></div>
+    <div id="target"></div>
+    <div id="classChecker4"></div>
+
+    <p><strong>11–12. Check attribute presence and toggle class conditionally</strong></p>
+    <div id="attributeChecker"></div>
+    <div id="attributeChecker2"></div>
+
+    <p><strong>13–15. Add multiple classes, replace all classes, synchronize classes</strong></p>
+    <input type="time" id="time-stamp">
+    <div id="classChecker5"></div>
+
+    <p><strong>16. Read all data-* attributes from an element</strong></p>
+    <div id="card2" data-role="admin" data-status="active" data-user-id="42"></div>
+    <div id="attributeChecker3"></div>
+
+    <p><strong>17. Conditionally add or remove an attribute</strong></p>
+    <div id="attributeChecker4"></div>
 
 <script>
 
 // 1. Get the id of a selected element and log it.
     const el = document.querySelector("#card");
-    document.getElementById("card").innerHTML =
-        `1. Get the id of a selected element and log it.<br>${el.id}`;
-        console.log(el.id);
+    el.textContent = `Element id: ${el.id}`;
+    console.log(el.id);
 
 // 2. Set a custom attribute (data-role) on an element.
     el.setAttribute("data-role", "admin");
-    document.getElementById("setAt").innerHTML =
-        `2. Set a custom attribute (data-role) on an element.<br>${el.getAttribute("data-role")}`;
+
+    document.getElementById("setAt").textContent =
+        `data-role value: ${el.getAttribute("data-role")}`;
 
 // 3. Read a data-* attribute from an element.
     el.setAttribute("data-card", "active");
-    document.getElementById("elementAt").innerHTML =
-        `3. Read a data-* attribute from an element.<br>${el.dataset.card}`;
+
+    document.getElementById("elementAt").textContent =
+        `data-card value: ${el.dataset.card}`;
 
 // 4. Remove an attribute from an element.
     const inputText = document.querySelector("#type-text");
@@ -58,42 +76,47 @@
     inputText.classList.add("type1");
 
 // 6. Check if an element contains a specific class.
-    document.getElementById("classChecker").innerHTML =
-        `6. Check if an element contains a specific class.<br>${inputText.classList.contains("type1")}`;
+    document.getElementById("classChecker").textContent =
+        `Contains class "type1": ${inputText.classList.contains("type1")}`;
 
 // 7. Remove a class from an element.
     inputText.classList.add("type2");
     inputText.classList.remove("type2");
-    document.getElementById("classChecker2").innerHTML =
-         `7. Remove a class from an element.<br>${inputText.classList.contains("type2")}`;
+
+    document.getElementById("classChecker2").textContent =
+        `Contains class "type2": ${inputText.classList.contains("type2")}`;
 
 // 8. Replace one class with another.
     inputText.classList.replace("type1", "type2");
-    document.getElementById("classChecker3").innerHTML =
-        `8. Replace one class with another.<br>${inputText.classList.contains("type2")}`;
+
+    document.getElementById("classChecker3").textContent =
+        `Class replaced with "type2": ${inputText.classList.contains("type2")}`;
 
 // 9. Copy classes from one element to another.
     const source = document.querySelector("#source");
     const target = document.querySelector("#target");
+
     target.classList.add(...source.classList);
 
 // 10. Toggle a class on an element.
     inputText.classList.toggle("type1");
-    document.getElementById("classChecker4").innerHTML =
-         `10. Toggle a class on an element.<br>${inputText.classList.contains("type1")}`;
+
+    document.getElementById("classChecker4").textContent =
+        `After toggle, has "type1": ${inputText.classList.contains("type1")}`;
 
 // 11. Check if an element has a specific attribute.
     inputText.setAttribute("data-role", "admin");
-    document.getElementById("attributeChecker").innerHTML =
-        `11. Check if an element has a specific attribute.<br>${inputText.hasAttribute("data-role")}`;
+    
+    document.getElementById("attributeChecker").textContent =
+        `Has attribute "data-role": ${inputText.hasAttribute("data-role")}`;
 
 // 12. Toggle a class based on an attribute’s presence.
     if (inputText.hasAttribute("data-role")) {
-    inputText.classList.toggle("has-role");
+        inputText.classList.toggle("has-role");
     }
 
-  document.getElementById("attributeChecker2").innerHTML =
-  `12. Toggle a class based on an attribute’s presence.<br>${inputText.classList.contains("has-role")}`;
+    document.getElementById("attributeChecker2").textContent =
+        `Has class "has-role": ${inputText.classList.contains("has-role")}`;
 
 // 13. Add multiple classes to an element at once.
     const inputTime = document.querySelector("#time-stamp");
@@ -104,29 +127,29 @@
     inputText.className = inputTime.className;
 
 // 15. Synchronize classes between two elements.
-    document.getElementById("classChecker5").innerHTML =
-        `15. Synchronize classes between two elements.<br>${inputText.classList.contains("set-time")}`;
+    document.getElementById("classChecker5").textContent =
+        `Classes synchronized (set-time present): ${inputText.classList.contains("set-time")}`;
 
 // 16. Read all data-* attributes from an element.
     const dataCard = document.getElementById("card2");
     const output = Object.entries(dataCard.dataset)
-    .map(([key, value]) => `${key}: ${value}`)
-    .join(" | ");
+        .map(([key, value]) => `${key}: ${value}`)
+        .join(" | ");
 
-    document.getElementById("attributeChecker3").innerHTML =
-        `16. Read all data-* attributes from an element.<br>${output}`;
+    document.getElementById("attributeChecker3").textContent =
+        `Data attributes → ${output}`;
 
 // 17. Conditionally add or remove an attribute.
     const isLocked = true;
 
     if (isLocked) {
-    inputText.setAttribute("readonly", "");
+        inputText.setAttribute("readonly", "");
     } else {
-    inputText.removeAttribute("readonly");
+        inputText.removeAttribute("readonly");
     }
 
-    document.getElementById("attributeChecker4").innerHTML =
-         `17. Conditionally add or remove an attribute.<br>${inputText.hasAttribute("readonly")}`;
+    document.getElementById("attributeChecker4").textContent =
+        `Readonly attribute present: ${inputText.hasAttribute("readonly")}`;
 
 </script>
 
