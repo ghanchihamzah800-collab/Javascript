@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Remove & Replace Element</title>
+</head>
+<body>
+    
+<!-- 1 -->
+<p><strong>1. Remove an element using .remove()</strong></p>
+<div id="removingDiv" style="border:2px solid red">Will be removed</div>
+
+<hr>
+
+<!-- 2 -->
+<p><strong>2. Remove a child element using removeChild()</strong></p>
+<ol id="ol1">
+  <li id="li1">One (will be removed)</li>
+  <li>Two</li>
+  <li>Three</li>
+</ol>
+
+<hr>
+
+<!-- 3 -->
+<p><strong>3. Replace one element with another</strong></p>
+<p id="oldEl">Old Paragraph</p>
+
+<hr>
+
+<!-- 4 -->
+<p><strong>4. Clear all children from a container</strong></p>
+<div id="container1">
+  <p>A</p>
+  <p>B</p>
+</div>
+
+<hr>
+
+<!-- 5 -->
+<p><strong>5. Remove only elements with a specific class</strong></p>
+<div class="box">box1</div>
+<div class="box">box2</div>
+
+<hr>
+
+<!-- 6 -->
+<p><strong>6. Remove elements based on text content</strong></p>
+<ul id="list">
+  <li>Apple</li>
+  <li>Banana</li>
+  <li>Remove Me</li>
+  <li>Orange</li>
+</ul>
+
+<hr>
+
+<!-- 7 & 8 -->
+<p><strong>7. Remove elements by index or position</strong></p>
+<p><strong>8. Replace content without removing the element</strong></p>
+<ul id="list2">
+  <li>1</li>
+  <li>2</li>
+  <li>3 (will be removed)</li>
+  <li>4 (will change)</li>
+</ul>
+
+<hr>
+
+<!-- 9 -->
+<p><strong>9. Safe removal (null checks / dynamic removal)</strong></p>
+<p>Temporary message will appear briefly</p>
+
+<hr>
+
+<!-- 10 -->
+<p><strong>10. Remove vs hide elements</strong></p>
+<div id="div2">This will be hidden</div>
+
+<script>
+
+//1.	Remove an element using .remove().
+    const div1 = document.querySelector("#removingDiv")
+    div1.remove()
+
+//2.	Remove a child element using removeChild().
+    const olList = document.querySelector("#ol1")
+    const li1 = document.querySelector("#li1")
+    olList.removeChild(li1) 
+
+//3.	Replace one element with another.
+    const old = document.getElementById("oldEl")
+
+    const new1 = document.createElement("div")
+    new1.textContent = " New Content";
+
+    old.replaceWith(new1)
+
+//4.	Clear all children from a container.
+    const container1 = document.querySelector("#container1");
+
+    container1.replaceChildren()
+
+//5.	Remove only elements with a specific class.
+    const removeEl = document.querySelectorAll(".box")
+
+    removeEl.forEach(element => {
+        element.remove()
+    });
+
+//6.	Remove elements based on text content.
+
+    const items = document.querySelectorAll("#list li");
+
+    items.forEach(item => {
+    if (item.textContent.trim() === "Remove Me") {
+        item.remove();
+    }
+    });
+
+//7.	Remove elements by index or position
+    const list2 = document.querySelectorAll("#list2 li")
+
+    list2[2].remove();
+
+//8.	Replace content without removing the element
+    list2[3].replaceChildren("5")
+
+//9.	Safe removal (null checks)
+    const msg = document.createElement("p");
+    msg.textContent = "Temporary message";
+
+    document.body.appendChild(msg)
+    msg.remove();
+
+//10.	Remove vs hide elements
+    const div2 = document.querySelector("#div2");
+    div2.setAttribute("hidden", "")
+
+</script>
+
+</body>
+</html>
