@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Content vs HTML </title>
+</head>
+<body>
+    
+    <p id = "setText">  </p>
+    <p id = "setText2">  </p>
+
+<div id="AdjustHTML">
+  <p>Existing content</p>
+</div>
+
+<p id="p1"></p>
+<p id = "textChecker"></p>
+
+
+<script>
+
+//1.	Set text using innerText.
+    const setText = document.querySelector("#setText")
+    setText.innerHTML = `<b> Text with innerHTML </b>`
+
+//2.	Set text using textContent.
+    const setText2 = document.querySelector("#setText2")
+    setText2.textContent = "Text with .textContent"
+
+//3.	Insert HTML using innerHTML.
+      const newEl = document.createElement("div")
+      newEl.id = "div1"
+      newEl.innerHTML = `<h1> Head One</h1>`
+
+      document.body.appendChild(newEl)
+
+//4.	Append HTML without overwriting existing content.
+    const adjustHTML = document.getElementById("AdjustHTML");
+    adjustHTML.insertAdjacentHTML("beforeend", "<p> After adjusted </p>");
+
+//5.	Copy text from one element to another.
+    const el1 = document.getElementById("p1")
+    el1.textContent = setText2.textContent 
+    newEl.after(el1)
+
+//6.	Clear content of an element safely.
+    el1.textContent = ""
+
+// 7. Insert text using createTextNode()
+
+    const el2 = document.createElement("p");          
+    const textNode = document.createTextNode("Text Node"); 
+    el2.appendChild(textNode);                       
+    document.body.appendChild(el2);      
+
+//8.	Detect whether an element contains HTML or plain text.
+
+    const checker = document.getElementById("textChecker");
+
+    if(setText.textContent !== setText.innerHTML){
+        checker.textContent = "Is a text content"
+    }
+
+    if(setText.innerHTML !== setText.textContent){
+        checker.textContent = "Is a inner HTMl"
+    }
+
+
+
+</script>
+
+</body>
+</html>
