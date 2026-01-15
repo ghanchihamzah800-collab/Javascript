@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debugging & Observations</title>
+</head>
+<body>
+
+    <div>
+    </div>
+
+    
+    <div class="box">
+    </div>
+</body>
+
+<script>
+
+//1.	Log a NodeList and inspect its prototype.
+//6.	Use console.dir() on a DOM element.
+    const items = document.querySelectorAll('div');
+    console.dir(items);
+
+//2.	Log an HTMLCollection and compare it with NodeList.
+    const divsByClass = document.getElementsByClassName('box');
+    console.log(divsByClass);
+    console.dir(divsByClass);
+
+    const divsByQuery = document.querySelectorAll('.box');
+    console.log(divsByQuery);
+    console.dir(divsByQuery);
+
+//3.	Modify DOM and observe live changes in DevTools.
+
+//4.	Observe what happens when you append the same element twice.
+
+//5.	Try selecting elements before DOM loads — observe error.
+
+</script>
+</html>
