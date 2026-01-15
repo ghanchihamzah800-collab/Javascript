@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mini DOM</title>
+
+    <style>
+
+    .dark{
+        min-height: 100%;
+        width: 100%;
+        background-color: black;
+        color: white;
+    }
+
+
+    .darkMode, .divAlert, .counter{
+        border: 2px solid red;
+        padding: 10px;
+        margin: 5px;
+    }
+
+    .highlight{
+        color : blue;
+    }
+
+    #span1 {
+        cursor: pointer;
+    }
+
+    button {
+        cursor: pointer;
+    }
+    
+</style>
+</head>
+
+ <!-- 2-3 -->
+
+<body class = "dark">
+
+    <div class="darkMode">
+        <span id = "span1" class = "highlight" onclick="highlight()"> Change theme to dark mode.</span>
+    <button onclick = "darkmode()" id="buttonDark"> Dark mode: On </button>
+        </div>
+
+<!-- 4 -->
+        <div class = "divAlert">
+            <button onclick = "getAlert()" id = "getAlertBtn"> Get Alert</button>
+            <button onClick = "alertDismiss()" id = "toggleAlert"> Turn Alert: Off </button>
+            <button onClick = "alertEnable()" id = "toggleAlert2" hidden> Turn Alert: On </button>
+        </div>
+
+    <!-- 5 -->
+        <div class = "counter">
+            <button id = "add" > + </button>
+             <button id = "sub"> - </button>
+             <span id="changer" > 0 </span>
+        </div>
+
+    <!-- 6 -->
+        <div class="password-box">
+        <input type="password" id="password">
+        <button id="togglePwd">Show</button>
+        </div>
+
+
+<script>
+
+//1.	Build a dynamic list where items are added via JS.
+    const newUl = document.createElement("ul")
+    Object.assign(newUl,{
+        id: "ul1"
+    })
+    document.body.appendChild(newUl)
+
+   for (let i = 0; i < 3; i++) {
+    const li = document.createElement("li");
+    li.textContent = `list item ${i}`
+    newUl.appendChild(li)
+    li.className = 'list-items'
+    li.id = `list-item-${i}`
+}
+
+//2.	Toggle dark mode using class switching.
+
+    function darkmode (){
+        const darkToggle = document.body.classList.toggle("dark")
+
+        const btn = document.querySelector("#buttonDark")
+        
+        btn.textContent = darkToggle ?    "Dark mode: on" :  "Dark mode: Off" 
+
+    }
+
+    const darkMode = document.querySelector(".darkMode")
+    newUl.after(darkMode)
+
+//3.	Highlight clicked elements.
+
+    function highlight() {
+    const span = document.querySelector("#span1");
+    span.classList.toggle("highlight");
+    }
+
+ //4.	Create a dismissible alert box.
+
+      const getAlerts = document.getElementById("getAlertBtn")
+      const toggleAlert = document.getElementById("toggleAlert")
+      const toggleAlert2 = document.getElementById("toggleAlert2")
+      const divAlert = document.querySelector(".divAlert")
+ 
+    function getAlert() {
+        alert("this is an alert")
+    }
+
+
+    function alertDismiss(){
+         
+          getAlerts.setAttribute("hidden", " ");
+          toggleAlert.setAttribute("hidden", " ")
+          toggleAlert2.removeAttribute("hidden", " ")
+
+
+    }
+
+    function alertEnable() {
+          getAlerts.removeAttribute("hidden");
+          toggleAlert.removeAttribute("hidden")
+          toggleAlert2.setAttribute("hidden", " ")
+    }
+
+    darkMode.after(divAlert)
+
+//5.	Build a simple DOM counter (+ / –).
+ // 5. Build a simple DOM counter (+ / –)
+const add = document.getElementById("add");
+const sub = document.getElementById("sub");
+const changer = document.getElementById("changer");
+
+let sum = 0;
+
+add.addEventListener("click", () => {
+  sum++;
+  changer.textContent = sum;
+});
+
+sub.addEventListener("click", () => {
+  sum--;
+  changer.textContent = sum;
+});
+
+
+//6.	Show/hide password input.
+
+    const passwordInput = document.getElementById("password");
+    const toggleBtn = document.getElementById("togglePwd");
+
+    toggleBtn.addEventListener("click", () => {
+    const isPassword = passwordInput.type === "password";
+
+    passwordInput.type = isPassword ? "text" : "password";
+    toggleBtn.textContent = isPassword ? "Hide" : "Show";
+    });
+
+
+   
+</script>
+
+</body>
+</html>
