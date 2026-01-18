@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>taregting and Event Control</title>
+</head>
+
+<style>
+    
+    #body{
+        background-color: black;
+        color: white;
+    }
+
+    .active {
+   color: red;
+    }
+
+    #list{
+        cursor: pointer;
+    }
+
+
+</style>
+
+<body id="body">
+    
+    <!-- 1-2 -->
+    <div class = "divs">
+        <ul id = "list">
+            <li>One <button class="dltBtn">Delete</button> </li>
+            <li>Two <button class="dltBtn">Delete</button> </li>
+            <li>Three <button class="dltBtn">Delete</button> </li>
+        </ul>
+    </div>
+
+    <!-- 3 -->
+     <div id="container"></div>
+    <p id="output"></p>
+
+    <!-- 4 -->
+    <form id="myForm">
+    <input type="text" id="name" placeholder="Enter name" />
+    <input type="email" id="email" placeholder="Enter email" />
+    <button type="submit">Submit</button>
+    </form>
+
+    <div id="result"></div>
+
+
+<script>
+
+//1.	Create a <ul> with multiple <li> elements.
+// Clicking an item should highlight only the clicked item.
+
+    const highlightUl = document.querySelectorAll("#list li")
+
+    highlightUl.forEach(item => {
+        item.addEventListener("click", () => {
+
+            highlightUl.forEach(li => li.classList.remove("active"));
+            
+            item.classList.add("active");
+        })
+    })
+
+//2.	Add a delete button inside each list item.
+// Clicking delete removes only that item.
+
+    const dltBtn = document.getElementsByClassName("dltBtn");
+
+    list.addEventListener("click", (e) => {
+    if (e.target.classList.contains("dltBtn")) {
+        e.target.parentElement.remove();
+    }
+    });
+ 
+ //3.	Create three buttons dynamically using JavaScript.
+// Clicking a button should display its index on the page.
+
+
+ const container = document.getElementById("container");
+    const output = document.getElementById("output");
+
+    for (let i = 0; i < 3; i++) {
+    const button = document.createElement("button");
+    button.textContent = `Button ${i + 1}`;
+
+    button.addEventListener("click", () => {
+        output.textContent = `Clicked button index: ${i+1}`;
+    });
+
+    container.appendChild(button);
+    }
+
+//4.	Create a form.
+// On submit, prevent page refresh and display form values in the DOM.
+
+    const form = document.getElementById("myForm");
+    const result = document.getElementById("result");
+
+    form.addEventListener("submit", (e) =>{
+        e.preventDefault();
+
+        const name = document.getElementById("name").value;
+        const email = document.getElementById("email").value;
+
+        result.innerHTML = `
+        <p> Name: ${name} </p>
+        <p> Email: ${email} </p>
+        `
+    })
+
+</script>
+
+
+</body>
+</html>
