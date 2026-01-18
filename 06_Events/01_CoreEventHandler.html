@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Handler</title>
+</head>
+
+<style>
+
+    body{
+        background-color: black;
+        color: white;
+    }
+
+    .divs {
+        padding: 20px;
+        border: 2px red solid;
+        margin: 5px;
+    }
+
+        .divs2 {
+        padding: 20px;
+        border: 2px blue solid;
+        margin: 5px;
+        background-color: black;
+    }
+
+</style>
+
+<body>
+    
+    <!-- 1 -->
+    <div class = "divs">
+    <button id="actionBtn">Click me</button>
+        </div>
+
+    <!-- 2 -->
+     <div class = "divs">
+     <button id = "startBtn">Start</button>
+     <button id = "stopBtn">Stop</button>
+     </div>
+
+     <!-- 3 -->
+     <div class = "divs">
+        <input type = "text" id = "textInput" placeholder = "Type anything">
+        <p>Characters: <span id = "counter"> 0 </span></p>
+     </div>
+
+     <!-- 4 -->
+     <div class = "divs2" id = "colorChanger">
+        <p> Come here to change color</p>
+     </div>
+
+     <!-- 5 -->
+      <div>
+     <label>
+    <input type="checkbox" id="toggleText" />
+    Show text
+    </label>
+
+    <p id="text" style="display: none;">
+    This paragraph is hidden by default.
+    </p>
+    </div>
+
+<script>
+
+//1.	Create a button. When clicked, change its text to “Clicked” and disable it.
+
+    const button1 = document.getElementById("actionBtn")
+
+    button1.addEventListener("click", function () {
+        button1.textContent = "Clicked";
+        button1.disabled = true;
+    })
+
+//2.	Create Start and Stop buttons.
+//Start changes the background color every second & Stop stops the change.
+
+    const startButton = document.querySelector("#startBtn")
+    const stopButton = document.querySelector("#stopBtn")
+    const originalBg = getComputedStyle(document.body).backgroundColor;
+    let intervalId;
+
+    startButton.addEventListener("click", () => {
+     intervalId = setInterval(() => {
+    document.body.style.backgroundColor =
+      `hsl(${Math.random() * 360}, 100%, 50%)`;
+  }, 1000);
+    });
+
+    stopButton.addEventListener("click", () => {
+    document.body.style.backgroundColor = originalBg;
+    clearInterval(intervalId);
+    });
+
+
+//3.	Create an input field. Show the live character count below it while typing.
+
+    const input = document.getElementById("textInput");
+    const counter = document.getElementById("counter");
+
+   input.addEventListener("input" , () => {
+        counter.textContent = input.value.length
+    })
+
+//4.	Create a <div>. Change its color on mouseenter and revert on mouseleave.
+
+    const colorChanger = document.getElementById("colorChanger");
+
+    const originalColor = getComputedStyle(colorChanger).backgroundColor
+
+   colorChanger.addEventListener("mouseenter", () => {
+    colorChanger.style.backgroundColor = "green";
+    });
+
+    colorChanger.addEventListener("mouseleave", () => {
+    colorChanger.style.backgroundColor = originalColor;
+    });
+
+//5.	Create a checkbox. When checked, show a hidden paragraph; when unchecked, hide it.
+
+    const checkbox = document.getElementById("toggleText");
+    const text = document.getElementById("text");
+
+    checkbox.addEventListener("change", () => {
+    if (checkbox.checked) {
+        text.style.display = "block";
+    } else {
+        text.style.display = "none";
+    }
+    });
+
+
+
+
+</script>
+</body>
+</html>
