@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keboard & Mouse Events</title>
+</head>
+
+<style>
+
+    #body{
+        background-color: black;
+        color: white;
+    }
+
+    #box {
+        width: 40px;
+        height: 40px;
+        background-color: red;
+        position: fixed;
+        pointer-events: none; 
+    }
+</style>
+
+<body id = "body">
+
+    <!-- 1 -->
+    <input type = "text" id="inputText" placeholder="Enter your info."> <button id = "inputBtn"> Submit </button>
+    <p id = "output"></p>
+
+    <!-- 3 -->
+     <div id="box"></div>
+
+    <!-- 4 -->
+    <button id="longPressBtn">Hold me</button>
+    <p id="message"></p>
+
+</body>
+
+<script>
+
+//1.	Detect when the Enter key is pressed inside an input and submit the value.
+
+    const input = document.getElementById("inputText");
+    const output = document.getElementById("output");
+    const inputBtn = document.getElementById("inputBtn");
+
+    input.addEventListener("keydown", (e) => {
+        if(e.key === "Enter"){
+            output.textContent = input.value
+        }
+    })
+
+    inputBtn.addEventListener("click", () => {
+       output.textContent = input.value
+    })
+
+//2.	Detect Ctrl + S and prevent the browser save dialog.
+
+    document.addEventListener("keydown", (e) => {
+        if(e.ctrlKey && e.key.toLowerCase() === "s"){
+            e.preventDefault();
+            alert("Ctrl + S Detected")
+        }
+    })
+
+//3.	Create a box that follows the mouse cursor.
+
+    const box = document.getElementById("box");
+
+    document.addEventListener("mousemove", (e) => {
+        box.style.left = e.clientX + "px";
+        box.style.top = e.clientY + "px";
+    })
+
+//4.	Detect a 1-second long press on a button and show a message.
+
+    const longPressBtn = document.getElementById("longPressBtn");
+    const message = document.getElementById("message");
+
+    let pressTimer = null;
+
+    longPressBtn.addEventListener("mousedown", () => {
+        pressTimer = setTimeout(() => {
+            message.textContent ="long press detected!"
+        }, 1000);
+    })
+
+    longPressBtn.addEventListener("mouseup", () => {
+        clearTimeout(pressTimer);
+        
+    });
+
+    longPressBtn.addEventListener("mouseleave", () => {
+        clearTimeout(pressTimer);
+        
+    });
+
+</script>
+</html>
