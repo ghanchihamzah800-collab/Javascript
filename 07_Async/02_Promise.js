@@ -67,3 +67,46 @@ step1()
     .then((result) => {
         console.log(result)
     })
+
+
+//6.	Demonstrate an unhandled rejection.
+
+function rejectPromise() {
+    return new Promise((_, reject) => {
+        setTimeout(() => {
+            reject("Something ain't right")
+        },1000)
+    })
+}
+
+async function Executor() {
+    try {
+        const promise1 = rejectPromise();
+    console.log(await promise1)
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+Executor();
+
+//7.	Demonstrate resolve vs reject being called twice.
+
+const promiseResolve = new Promise((resolve) => {
+    resolve("First resolve");
+    resolve("Second resolve")
+})
+
+promiseResolve.then(value =>{
+    console.log("Resolved with:", value)
+})
+
+
+const promiseReject = new Promise((_, reject) => {
+    reject("Reject One");
+    reject("Reject Two");
+})
+
+promiseReject.catch(value =>{
+    console.log("Reject with: ",value)
+})
