@@ -63,4 +63,19 @@
         console.log("After 1 sec of pause")
     }
 
-    run()
+    run();
+
+
+// 6.	Demonstrate Promise vs setTimeout execution order. 
+
+console.log("Task A");
+
+setTimeout(() => {
+    console.log("Task B");
+}, 1000);
+
+Promise.resolve().then(() => console.log("Task C"));
+
+Promise.resolve().then(() => console.log("Task D"));
+
+console.log("Task F");
