@@ -1,0 +1,319 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Async With DOM </title>
+</head>
+<body style="background-color: black; color: azure;">
+    
+<!-- 1 -->
+<button id="btn1"> Load User A </button>
+<button id="btn2"> Load User B </button>
+
+<p id="output"> No User Loaded </p> <hr>
+
+<!-- 2 -->
+<button id="loadBtn">Load Data</button>
+<p id="output2">No data yet</p> <hr>
+
+<!-- 3 -->
+<button id="incrementBtn">Increment</button>
+<p id="count">0</p> <hr>
+
+<!-- 4 -->
+<button id="loadBtn2">Load Items</button>
+<ul id="list"></ul> <hr>
+
+<!-- 5 -->
+<button id="loadBtn3">Fetch Data</button>
+<p id="output3"></p> <hr>
+
+<!-- 6 -->
+<button id="loadBtn4">Load Data</button>
+<p id="output4">No Data Yet </p> <hr>
+
+<!-- 7 -->
+<button id="startBtn">Start Request</button>
+<button id="removeBtn">Remove Output</button>
+
+<div id="container">
+    <p id="output5">Waiting...</p>
+</div> <hr>
+
+<!-- 8 -->
+<button id="likeBtn">Like</button>
+<p id="counter">0</p> <hr>
+
+<!-- 9 -->
+<input id="searchInput" placeholder="Search">
+<p id="output6"></p> <hr>
+
+
+
+
+
+<script>
+    
+//1.	Simulate two async requests finishing out of order and observe UI corruption.
+
+    const output = document.getElementById("output");
+
+    function fakeRequest(name, delay) {
+        return new Promise((resolve) => {
+            console.log(`Request started for ${name}`);
+
+            setTimeout(() => {
+                console.log(`Request finished for ${name}`);
+                resolve(`Data for ${name}`);
+            }, delay);
+        })
+    }
+
+    document.getElementById("btn1").addEventListener("click", async() => {
+        const data = await fakeRequest("User A", 3000);
+        output.textContent = data;
+    })
+
+    document.getElementById("btn2").addEventListener("click", async () => {
+      const data = await fakeRequest("User B", 1000);
+      output.textContent = data;
+    });
+
+//2.	Simulate rapid button clicks triggering overlapping async calls.
+
+const loadBtn = document.getElementById("loadBtn");
+const output2 = document.getElementById("output2");
+
+function fakeRequest2() {
+    return new Promise((resolve) => {
+        const randomDelay = Math.floor(Math.random() * 3000) + 500;
+        setTimeout(() => {
+            resolve(`Response after ${randomDelay} ms`)
+        }, randomDelay);
+    })
+}
+
+loadBtn.addEventListener("click", async () => {
+    output2.textContent = "loading...";
+
+    const data = await fakeRequest2();
+    output2.textContent = data;
+    })
+
+//3.	Remove button disabling and observe duplicate state mutations.
+
+const incrementBtn = document.getElementById("incrementBtn");
+const countEl = document.getElementById("count");
+
+let count = 0;
+
+function fakeAsyncIncrement() {
+   return new Promise((resolve) => {
+    setTimeout(() => {
+        resolve();
+    }, 1500);
+   }); 
+}
+
+incrementBtn.addEventListener("click", async() => {
+    incrementBtn.disabled = true;
+
+    await fakeAsyncIncrement();
+
+    count++;
+    countEl.textContent = count;
+
+    incrementBtn.disabled = false;
+});
+
+//4.	Render new async data without clearing old data and observe artifacts.
+
+const loadBtn2 = document.getElementById("loadBtn2");
+const list = document.getElementById("list");
+
+function fakeFetch() {
+    return new Promise ((resolve) => {
+        setTimeout(() => {
+        resolve([
+            "Item " + Math.floor(Math.random() * 100),
+            "Item " + Math.floor(Math.random() * 100),
+            "Item " + Math.floor(Math.random() * 100)
+        ]);
+        }, 1000);
+    })
+}
+
+loadBtn2.addEventListener("click", async () => {
+    const items = await fakeFetch();
+
+    items.forEach(item => {
+        const li = document.createElement("li");
+        li.textContent = item;
+        list.appendChild(li);
+    });
+})
+
+//5.	Remove loading-state cleanup and observe stuck UI.
+
+const loadBtn3 = document.getElementById("loadBtn3");
+const output3 = document.getElementById("output3");
+
+function fakeFetch2() {
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            resolve("Data loaded successfully");
+        }, 2000);
+    })
+}
+
+loadBtn3.addEventListener("click", async () => {
+  loadBtn3.disabled = true;
+  output3.textContent = "Loading...";
+
+  try{
+    const result = await fakeFetch2();
+    output3.textContent = result;
+  }catch (error){
+    output3.textContent = "Error occurred";
+  } finally{
+    loadBtn3.disabled = false;
+  }
+})
+
+//6.	Remove request-tracking logic and observe stale UI overwrites.
+
+const loadBtn4 = document.getElementById("loadBtn4");
+const output4 = document.getElementById("output4");
+
+let currentRequestId = 0;
+
+function fakeFetch4() {
+    return new Promise((resolve) => {
+        const delay = Math.floor(Math.random() * 3000) + 500;
+        setTimeout(() => {
+            resolve(`Response after ${delay} ms`)
+        }, delay);
+    })
+}
+
+loadBtn4.addEventListener("click", async () => {
+    const requestId = ++currentRequestId;
+
+    output4.textContent = "loading...";
+
+    const data = await fakeFetch4();
+
+    if (requestId === currentRequestId){
+        output4.textContent = data;
+    }
+})
+
+//7.	Trigger async update after removing the DOM node.
+
+const startBtn = document.getElementById("startBtn");
+const removeBtn = document.getElementById("removeBtn");
+const container = document.getElementById("container");
+
+function fakeFetch5(){
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            resolve("Async result arrived");
+        }, 2000)
+    });
+}
+
+startBtn.addEventListener("click", async () => {
+    const output5 = document.getElementById("output5");
+
+    const data = await fakeFetch5();
+    output5.textContent = data;
+})
+
+removeBtn.addEventListener("click", () => {
+    output5.textContent = "";
+});
+
+//8.	Update UI before async confirmation and compare behavior.
+
+const likeBtn = document.getElementById("likeBtn");
+const countEl2 = document.getElementById("counter");
+
+let counter = 0;
+
+function fakeServerCall1() {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      Math.random() > 0.5 ? resolve() : reject("Server error");
+    }, 1500);
+  });
+}
+
+likeBtn.addEventListener("click", async () => {
+  counter++;
+  countEl2.textContent = counter;
+
+  try {
+    await fakeServerCall1();
+  } catch (error) {
+    console.log("Server failed:", error);
+  }
+});
+
+//9.	Implement AbortController cancellation pattern.
+
+const input = document.getElementById("searchInput");
+const output6 = document.getElementById("output6");
+
+let currentController = null;
+
+function fakeSearch(query, signal) {
+    return new Promise((resolve, reject) => {
+        const delay = Math.random() * 3000 + 500;
+
+        const timeoutId = setTimeout(() => {
+            resolve(`Result for ${query} at ${new Date().toLocaleTimeString()}`)
+        }, delay);
+
+        signal.addEventListener("abort", () => {
+            clearTimeout(timeoutId);
+            reject(new DOMException("Search aborted", "AbortError"))
+        })
+    })
+}
+
+input.addEventListener("input", async (e) => {
+    const query = e.target.value.trim();
+
+    if(!query){
+        output6.textContent = "";
+        return;
+    }
+
+    if(currentController){
+        currentController.abort();
+    }
+
+    currentController = new AbortController();
+
+    output6.textContent = "Searching..";
+
+    try{
+        const result = await fakeSearch(query, currentController.signal);
+        output6.textContent = result;
+    } catch (err){
+        if(err.name === "AbortError"){
+            return;
+        }
+        output6.textContent = "Error Occured";
+    }
+})
+
+
+
+</script>
+
+</body>
+</html>
