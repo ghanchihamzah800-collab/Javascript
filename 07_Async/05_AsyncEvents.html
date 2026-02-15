@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Async + DOM + Events</title>
+</head>
+<body style="background-color: black; color: #fff;">
+    
+<!-- 1 -->
+<button id="browserBtn"> Check Browser </button>
+<p id="output1">Check</p> <hr>
+
+<!-- 2 -->
+<form id="myForm">
+    <input type="text" placeholder="Type here">
+    <button type="submit">Submit</button>
+</form>
+
+<p id="output2"></p>
+<hr>
+
+<!-- 3 -->
+<button id="multiBtn">Click Me</button>
+<p id="log"></p> <hr>
+
+<!-- 4 -->
+<form id="myForm2">
+    <input type="text" placeholder="Type here">
+    <button type="submit" id="submitBtn">Submit</button>
+</form>
+
+<p id="output4"></p> <hr>
+
+<!-- 5 -->
+<button id="stateRun">Run Async</button>
+<p id="display">Count: 0</p> <hr>
+
+<!-- 6 -->
+<div id="parent" style="padding:40px; background:#333;">
+  <button id="child">Click Me</button>
+</div>
+
+<div id="log2"></div> <hr>
+
+<!-- 7 -->
+<button id="reBtn">Click Fast</button>
+<div id="log3"></div>
+
+<script>
+
+//1.	Create an async click handler that throws — observe browser behavior.
+
+const browserBtn = document.getElementById("browserBtn");
+const output1 = document.getElementById("output1");
+
+browserBtn.addEventListener("click", async () => {
+    output1.textContent = "Button clicked";
+
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    
+    throw new Error (output1.textContent = "Something went wrong");
+});
+
+//2.	Place preventDefault() after async logic and compare results.
+
+const myForm = document.getElementById("myForm");
+const output2 = document.getElementById("output2");
+
+myForm.addEventListener("submit", async (e) => {
+    output2.textContent = "Handler Started";
+
+    await new Promise((resolve) => {
+        setTimeout(() => {
+            resolve();
+        }, 1000);
+
+
+    });
+        
+    e.preventDefault();
+
+    console.log( `preventDefault called`);
+});
+
+//3.	Attach multiple listeners to the same event and trigger overlapping async calls.
+
+const multiBtn = document.getElementById("multiBtn");
+const log = document.getElementById("log");
+
+function delay(ms) {
+    return new Promise((resolve) => {
+        setTimeout(() => {
+           resolve(); 
+        }, ms);
+    })
+}
+
+function addLog(message) {
+    const p = document.createElement("p");
+    p.textContent = message;
+    log.appendChild(p);
+}
+
+multiBtn.addEventListener("click", async() => {
+    addLog("Listener 1 START");
+    await delay(2000);
+    addLog("Listener 1 END");
+});
+
+multiBtn.addEventListener("click", async () => {
+    addLog("Listener 2 START");
+    await delay(1000);
+    addLog("Listener 2 END");
+  });
+
+//4.	Trigger async logic from both submit and click events unintentionally.
+
+const myForm2 = document.getElementById("myForm2");
+const submitBtn = document.getElementById("submitBtn");
+const output4 = document.getElementById("output4");
+
+async function asyncLogic(source) {
+    output4.innerHTML += `<p>${source} START</p>`;
+    await delay(1000);
+    output4.innerHTML += `<p>${source} END</p>`;
+}
+
+submitBtn.addEventListener("click", async () => {
+    await asyncLogic("CLICKED");
+})
+
+myForm2.addEventListener("submit", async(e) => {
+    e.preventDefault();
+    await asyncLogic("SUBMIT");
+})
+
+//5.	Modify shared external state during async execution.
+
+const stateRun = document.getElementById("stateRun");
+const display = document.getElementById("display");
+
+let count = 0;
+
+stateRun.addEventListener("click", async() => {
+    const current = count;
+
+    await delay (1000);
+
+    count = current + 1;
+    display.textContent = "Count: " + count;
+})
+
+//6.	Trigger event bubbling with async parent and child listeners.
+
+const parent = document.getElementById("parent");
+const child = document.getElementById("child");
+const log2 = document.getElementById("log2");
+
+function delay(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+function addLog2(message) {
+    const p = document.createElement("p");
+    p.textContent = message;
+    log2.appendChild(p);
+}
+
+child.addEventListener("click", async () => {
+    addLog2("Child START");
+    await delay(2000);
+    addLog2("Child END");
+});
+
+parent.addEventListener("click", async () => {
+    addLog2("Parent START");
+    await delay(1000);
+    addLog2("Parent END");
+});
+
+//7.	Let the same async handler execute twice before finishing.
+
+const reBtn = document.getElementById("reBtn");
+const log3 = document.getElementById("log3");
+
+function addLog3(message) {
+    const p = document.createElement("p");
+    p.textContent = message;
+    log3.appendChild(p);
+}
+
+async function asyncHandler() {
+    addLog3("Start");
+    await delay(2000);
+    addLog3("END");
+}
+
+reBtn.addEventListener("click", asyncHandler);
+
+</script>
+</body>
+</html>
