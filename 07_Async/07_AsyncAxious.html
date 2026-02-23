@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Async + Axios</title>
+</head>
+<body>
+
+<!-- I -->
+<button id="fetchBtn">Fetch Valid Post</button>
+<p id="loading1" style="display:none;">Loading...</p>
+<div id="output1"></div>
+
+<hr/>
+
+<!-- II + III -->
+<button id="errorBtn">Fetch Invalid Post (404)</button>
+<p id="loading2" style="display:none;">Loading...</p>
+<div id="output2"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+<script>
+
+// I. Make a basic Axios GET request and observe automatic JSON parsing via response.data.
+
+const fetchBtn = document.getElementById("fetchBtn");
+const loading1 = document.getElementById("loading1");
+const output1 = document.getElementById("output1");
+
+fetchBtn.addEventListener("click", async () => {
+
+  loading1.style.display = "block";
+  output1.textContent = "";
+
+  try {
+    const response = await axios.get(
+      "https://jsonplaceholder.typicode.com/posts/1"
+    );
+
+    const data = response.data;
+
+    output1.textContent =
+      "Title: " + data.title + " | Time: " + Date.now();
+
+  } catch (err) {
+
+    output1.textContent = "Error: " + err.message;
+
+  } finally {
+
+    loading1.style.display = "none";
+
+  }
+
+});
+
+
+// II. Trigger a 404 endpoint and verify Axios automatically rejects.
+
+
+// III. Log and inspect the Axios error object.
+
+const errorBtn = document.getElementById("errorBtn");
+const loading2 = document.getElementById("loading2");
+const output2 = document.getElementById("output2");
+
+errorBtn.addEventListener("click", async () => {
+
+  loading2.style.display = "block";
+  output2.textContent = "";
+
+  try {
+
+    await axios.get(
+      "https://jsonplaceholder.typicode.com/posts/999999"
+    );
+
+    output2.textContent = "Unexpected success";
+
+  } catch (error) {
+
+    console.log("Full error:", error);
+    console.log("error.message:", error.message);
+    console.log("error.response:", error.response);
+    console.log("error.request:", error.request);
+
+    if (error.response) {
+      output2.textContent =
+        "HTTP Error: " + error.response.status;
+    } else if (error.request) {
+      output2.textContent =
+        "Network Error: No response received";
+    } else {
+      output2.textContent =
+        "Unexpected Error: " + error.message;
+    }
+
+  } finally {
+
+    loading2.style.display = "none";
+
+  }
+
+});
+
+</script>
+</body>
+</html>
